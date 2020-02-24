@@ -79,6 +79,14 @@
     pgsqlrep_data_path: '/var/opt/rh/rh-postgresql10/lib/pgsql/data'
 
   tasks:
+    - name: Create softlink for psql
+      file:
+        src: /opt/rh/rh-postgresql10/root/usr/lib64/libpq.so.rh-postgresql10-5
+        dest: /usr/lib64/libpq.so.rh-postgresql10-5
+        owner: root
+        group: root
+        state: link
+        
     - import_role:
         name: samdoran.pgsql_replication
 
