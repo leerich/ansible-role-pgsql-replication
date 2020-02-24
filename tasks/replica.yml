@@ -1,6 +1,6 @@
 - name: Stop PostgreSQL
   service:
-    name: "{{ pgsql_version | pgsql_service_string }}"
+    name: "{{ pgsql_service }}"
     state: stopped
 
 - name: Clear out data directory
@@ -17,7 +17,7 @@
     mode: '0700'
 
 - name: Create base backup
-  command: pg_basebackup -X stream -D {{ pgsqlrep_data_path }} -h {{ pgsqlrep_master_address }} -U {{ pgsqlrep_user }}
+  command: "{{ psql_bin_path }}/pg_basebackup -X stream -D {{ pgsqlrep_data_path }} -h {{ pgsqlrep_master_address }} -U {{ pgsqlrep_user }}"
   become: yes
   become_user: postgres
 
@@ -42,6 +42,6 @@
 
 - name: Start and enable PostgreSQL
   service:
-    name: "{{ pgsql_version | pgsql_service_string }}"
+    name: "{{ pgsql_service }}"
     state: started
     enabled: yes
