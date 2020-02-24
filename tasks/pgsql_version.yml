@@ -1,5 +1,5 @@
 - name: Get PGSQL version
-  command: psql --version
+  command: "{{ psql_bin_path }}/psql --version"
   changed_when: no
   check_mode: no
   register: pgsql_version_check
